@@ -1,7 +1,8 @@
 import React from "react"
 import Slider from "@/components/slider"
 import RecommendList from "@/components/recommendList"
-import Scroll from "@/components/Scroll"
+import Scroll from "@/components/scroll"
+import Loading from "@/components/loading"
 import useRecommendView from "./hooks/useRecommend"
 import { Content } from "./style"
 // mock data
@@ -24,16 +25,17 @@ const recommendList: RecommendType[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
 )
 
 const Recommend: React.FC = () => {
-  const { bannerList, recommendList } = useRecommendView()
+  const { bannerList, recommendList, loading } = useRecommendView()
   return (
     <Content>
       <div className="before"></div>
-      <Scroll className="list" direction="vertical">
+      <Scroll className="list" direction="vertical" loading={loading}>
         <div>
           <Slider bannerList={bannerList} />
           <RecommendList recommendList={recommendList}></RecommendList>
         </div>
       </Scroll>
+      <Loading loading={loading} />
     </Content>
   )
 }

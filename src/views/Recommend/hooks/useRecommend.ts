@@ -10,25 +10,37 @@ const useRecommendView = (options?: Options) => {
   const [bannerList, setBannerList] = React.useState<BannerType[]>([])
   const [recommendList, setRecommendList] = React.useState<RecommendType[]>([])
 
+  const [loading, setLoading] = React.useState<boolean>(false)
+  const [bannerLoading, setBannerLoading] = React.useState<boolean>(false)
+  const [recommendLoading, setRecommendLoading] = React.useState<boolean>(false)
   React.useEffect(() => {
-    if (banner)
+    if (banner) {
+      setBannerLoading(true)
       getBannerRequest()
-        .then((data) => {        
+        .then((data) => {
           setBannerList(data.banners)
+          setBannerLoading(false)
         })
         .catch((err) => console.warn("轮播图数据传输错误", err))
+    }
   }, [])
 
   React.useEffect(() => {
-    if (recommend)
+    if (recommend) {
+      setRecommendLoading(true)
       getRecommendListRequest()
         .then((data) => {
-          console.log(data) 
           setRecommendList(data.result)
+          setRecommendLoading(false)
         })
         .catch(() => console.warn("推荐歌单数据传输错误"))
+    }
   }, [])
-  return { bannerList, recommendList }
+
+  React.useEffect(() => {
+    setLoading((recommend && recommendLoading) || (banner && bannerLoading))
+  }, [bannerLoading, recommendLoading])
+  return { bannerList, recommendList, loading }
 }
 
 export default useRecommendView

@@ -6,9 +6,13 @@ import {
   PropsWithChildren,
   useImperativeHandle,
   ForwardRefRenderFunction,
+  useMemo,
 } from "react"
+import Loading from "@/components/loading"
+import LoadingV2 from "@/components/loading@2"
+import { debounce } from "@/api/utils"
 import BScroll from "better-scroll"
-import { ScrollContainer } from "./style"
+import { ScrollContainer, PullUpLoading, PullDownLoading } from "./style"
 
 type CallbackFunction = () => void
 
@@ -17,13 +21,18 @@ interface PropsType {
   pullDown?: CallbackFunction
   onScroll?: CallbackFunction
 
-  direction?: "horizental" | "vertical"
+  direction?: "horizontal" | "vertical"
   click?: boolean
   refresh?: boolean
   bounceTop?: boolean
   bounceBottom?: boolean
 
   className?: string
+
+  pullUpLoading?: boolean
+  pullDownLoading?: boolean
+
+  loading?:boolean
 }
 
 interface ScrollHandler {
@@ -40,13 +49,17 @@ const Scroll: ForwardRefRenderFunction<
     pullUp,
     pullDown,
     onScroll,
-    direction = "horizental",
+    direction = "horizontal",
     click = true,
     refresh = true,
     bounceTop = true,
     bounceBottom = true,
     children,
     className,
+    pullUpLoading,
+    pullDownLoading,
+
+    loading=false
   },
   ref
 ) => {
@@ -55,7 +68,7 @@ const Scroll: ForwardRefRenderFunction<
   useEffect(() => {
     if (scrollContainerRef.current) {
       const sroll = new BScroll(scrollContainerRef.current, {
-        scrollX: direction === "horizental",
+        scrollX: direction === "horizontal",
         scrollY: direction === "vertical",
         probeType: 3,
         click,
@@ -64,8 +77,10 @@ const Scroll: ForwardRefRenderFunction<
           bottom: bounceBottom,
         },
         mouseWheel: true,
+        disableMouse: false,
+        disableTouch: false,
       })
-
+      setBScroll(scroll)
       return () => {
         setBScroll(null)
       }
@@ -82,32 +97,6 @@ const Scroll: ForwardRefRenderFunction<
     return () => bScroll.off("scroll")
   }, [onScroll, bScroll])
 
-  useEffect(() => {
-    if (!bScroll || !pullUp) return
-    bScroll.on("scrollEnd", () => {
-      if (bScroll.y <= bScroll.maxScrollY + 100) {
-        pullUp()
-      }
-    })
-    return () => bScroll.off("scrollEnd")
-  }, [pullUp, bScroll])
-
-  useEffect(() => {
-    if (!bScroll || !pullDown) return
-    bScroll.on("touchEnd", (pos) => {
-      if (pos.y > 50) {
-        pullDown()
-      }
-    })
-    return () => bScroll.off("touchEnd")
-  }, [pullDown, bScroll])
-
-  useEffect(() => {
-    if (refresh && bScroll) {
-      bScroll.refresh()
-    }
-  })
-
   useImperativeHandle(ref, () => ({
     refresh() {
       if (bScroll) {
@@ -120,7 +109,67 @@ const Scroll: ForwardRefRenderFunction<
     },
   }))
 
-  return <ScrollContainer ref={scrollContainerRef}>{children}</ScrollContainer>
+  // 加载后出发resize事件
+  // 防止首次加载图片占位时不能滚动
+  useEffect(() => {
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"))
+    }, 0)
+  }, [loading])
+
+  // pull up and pull down
+  const PullUpdisplayStyle: React.CSSProperties = pullUpLoading
+    ? { display: "" }
+    : { display: "none" }
+  const PullDowndisplayStyle: React.CSSProperties = pullDownLoading
+    ? { display: "" }
+    : { display: "none" }
+
+  const pullUpDebounce = useMemo(() => {
+    return pullUp ? debounce(pullUp, 300) : null
+  }, [pullUp])
+
+  const pullDownDebounce = useMemo(() => {
+    return pullDown ? debounce(pullDown, 300) : null
+  }, [pullDown])
+
+  useEffect(() => {
+    if (!bScroll || !pullUpDebounce) return
+    bScroll.on("scrollEnd", () => {
+      if (bScroll.y <= bScroll.maxScrollY + 100) {
+        pullUpDebounce()
+      }
+    })
+    return () => bScroll.off("scrollEnd")
+  }, [pullUpDebounce, bScroll])
+
+  useEffect(() => {
+    if (!bScroll || !pullDownDebounce) return
+    bScroll.on("touchEnd", (pos) => {
+      if (pos.y > 50) {
+        pullDownDebounce()
+      }
+    })
+    return () => bScroll.off("touchEnd")
+  }, [pullDownDebounce, bScroll])
+
+  useEffect(() => {
+    if (refresh && bScroll) {
+      bScroll.refresh()
+    }
+  })
+
+  return (
+    <ScrollContainer ref={scrollContainerRef}>
+      {children}
+      <PullUpLoading style={PullUpdisplayStyle}>
+        <Loading loading />
+      </PullUpLoading>
+      <PullDownLoading style={PullDowndisplayStyle}>
+        <LoadingV2 />
+      </PullDownLoading>
+    </ScrollContainer>
+  )
 }
 
 export default forwardRef(Scroll)
