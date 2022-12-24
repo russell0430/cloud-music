@@ -32,7 +32,8 @@ const enterDetail = (name: string) => {
 const RankList: React.FC<PropsType> = ({ list, global = false }) => {
   return (
     <List globalRank={global}>
-      {list.map((item,index) => {
+      {list.map((item, index) => {
+        console.log(item)
         return (
           <ListItem
             key={`${item.coverImgId}${index}`}

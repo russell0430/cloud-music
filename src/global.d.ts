@@ -13,6 +13,7 @@ declare interface Banner {
 
 // /singer 内的歌手
 declare interface Singer {
+  id: string
   picUrl: string
   name: string
   accountId: number
@@ -26,5 +27,40 @@ declare interface Song {
   coverImgId: number
   name: string
   updateFrequency: string
-  coverImgUrl:string
+  coverImgUrl: string
+}
+
+// /recommend/:id album
+declare interface Album {
+  creator: {
+    avatarUrl: string
+    nickname: string
+  }
+  coverImgUrl: string
+  subscribedCount: number
+  name: string
+  tracks: {
+    name: string
+    ar: {
+      name: string
+    }[]
+    al: {
+      name: string
+    }
+  }[]
+}
+
+// /singers/:id  特定歌手
+declare interface Artist {
+  picUrl: string
+  name: string
+  hotSongs: {
+    name: string
+    ar: {
+      name: string
+    }[]
+    al: {
+      name: string
+    }
+  }[]
 }

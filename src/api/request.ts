@@ -3,9 +3,10 @@ import { axiosInstance } from "./config"
 import type {
   BannerResponse,
   RankListResponse,
-  RecommendRespone,
+  RecommendResponse,
   SearchOptions,
   SingerListResponse,
+  AlbumResponse,
 } from "./types"
 
 export const getBannerRequest = () => {
@@ -13,7 +14,7 @@ export const getBannerRequest = () => {
 }
 
 export const getRecommendListRequest = () => {
-  return axiosInstance.get<string, RecommendRespone>("/personalized")
+  return axiosInstance.get<string, RecommendResponse>("/personalized")
 }
 
 export const getHotSingerListRequest = (count: number) => {
@@ -34,5 +35,11 @@ export const getSingerListRequest = ({
 }
 
 export const getRankListRequest = () => {
-  return axiosInstance.get<string, RankListResponse>("/toplist/detail")
+  return axiosInstance.get<string, RankListResponse>(
+    "/top/playlist/highquality?limit=20&order=hot"
+  )
+}
+
+export const getAlbumDetailRequest = (id: string) => {
+  return axiosInstance.get<string, AlbumResponse>(`/playlist/detail?id=${id}`)
 }

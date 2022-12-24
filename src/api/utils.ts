@@ -33,8 +33,16 @@ export const filterIndex = (rankList: { tracks: unknown[] }[]) => {
 // /rank ,找出排行榜编号
 export const filterIdx = (name: string) => {
   for (let key in RankTypes) {
-    console.log(RankTypes[key],name)
-    if (RankTypes[key] === name) return key;
+    console.log(RankTypes[key], name)
+    if (RankTypes[key] === name) return key
   }
-  return null;
-};
+  return null
+}
+
+export const getName = (list: { name: string }[]) => {
+  return list
+    .map((item) => item.name)
+    .reduce((prev, curr) => {
+      return `${prev}/${curr}`
+    })
+}

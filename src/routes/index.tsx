@@ -5,6 +5,8 @@ import Home from "@/views/Home"
 import Recommend from "@/views/Recommend"
 import Singers from "@/views/Singers"
 import Rank from "@/views/Rank"
+import Album from "@/views/Album"
+import Singer from "@/views/Singer"
 type RouteType = {
   path: string
   element: React.ReactElement
@@ -21,10 +23,21 @@ const routes: RouteType[] = [
       {
         path: "/recommend",
         element: <Recommend />,
+        children:[
+          {
+            path: ":id",
+            element: <Album />,
+          },
+        ]
       },
       {
         path: "/singers",
         element: <Singers />,
+        children:[{
+          path:"/singers/:id",
+          element: <Singer />
+        }
+        ]
       },
       {
         path: "/rank",

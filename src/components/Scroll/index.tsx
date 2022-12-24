@@ -21,7 +21,7 @@ interface PropsType {
   pullDown?: CallbackFunction
   onScroll?: CallbackFunction
 
-  direction?: "horizontal" | "vertical"
+  direction: "horizontal" | "vertical"
   click?: boolean
   refresh?: boolean
   bounceTop?: boolean

@@ -9,12 +9,13 @@ const useRankList = () => {
     setLoading(true)
     getRankListRequest()
       .then((res) => {
-        let globalStartIndex = filterIndex(res.list)
-        setOfficalList(res.list.slice(0, globalStartIndex))
-        setGlobalList(res.list.slice(globalStartIndex))
+        console.log(res)
+        // let globalStartIndex = filterIndex(res.list)
+        // setOfficalList(res.list.slice(0, globalStartIndex))
+        // setGlobalList(res.list.slice(globalStartIndex))
       })
       .catch((err) => {
-        console.warn("get rank list error ")
+        console.warn("get rank list error ",err)
       })
       .finally(() => setLoading(false))
   }, [])

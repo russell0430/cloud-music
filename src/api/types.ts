@@ -8,7 +8,7 @@ export interface BannerResponse extends BaseResponse {
 }
 
 // /recommend
-export interface RecommendRespone extends BaseResponse {
+export interface RecommendResponse extends BaseResponse {
   result: Recommend[]
   hasTaste: boolean
   category: number
@@ -25,8 +25,11 @@ export interface SearchOptions {
   count: number
 }
 
-
 // /rank
 export interface RankListResponse extends BaseResponse {
   list: Song[]
+}
+
+export interface AlbumResponse extends BaseResponse {
+  playlist: Album
 }

@@ -5,6 +5,7 @@ import { NavContainer, ListContainer } from "./style"
 import SingerList from "./SingerList"
 import useSingerList from "./hooks/useSingerList"
 import { categories, alphas } from "@/api/config"
+import { Outlet } from "react-router-dom"
 
 const Singers: React.FC = () => {
   const [category, setCategory] = useState(categories[0].key)
@@ -14,7 +15,6 @@ const Singers: React.FC = () => {
 
   const updateCategory = (key: {type:number,area:number}) => {
     setCategory(key)
-    console.log("update" ,key)
     changeCategoryOrAlpha({ category: key })
   }
 
@@ -43,6 +43,7 @@ const Singers: React.FC = () => {
           <SingerList singerList={singerList} />
         </Scroll>
       </ListContainer>
+      <Outlet />
     </div>
   )
 }

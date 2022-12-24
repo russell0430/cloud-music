@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import style from "@/assets/global-style"
-import type { Song } from "./rankList"
 
 export const Container = styled.div`
   position: fixed;

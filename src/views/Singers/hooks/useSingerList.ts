@@ -5,11 +5,7 @@ interface Options {
   alpha: Alpha["key"]
   category: Category["key"]
 }
-type SingerList = {
-  picUrl: string
-  name: string
-  accountId: number
-}[]
+
 
 const useSingerList = ({
   alpha: initialAlpha,
@@ -21,7 +17,7 @@ const useSingerList = ({
     category: initialCategory,
   })
   const [count, setCount] = React.useState(0)
-  const [singerList, setSingerList] = React.useState<SingerList>([])
+  const [singerList, setSingerList] = React.useState<Singer[]>([])
 
   const [loading, setLoading] = React.useState(false)
 

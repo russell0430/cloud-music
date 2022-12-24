@@ -5,7 +5,10 @@ import Routes from "./routes"
 import { RecoilRoot } from "recoil"
 function App() {
   return (
-    <div className="App">
+    <div
+      className="App"
+      // style={{ maxWidth: "720px", margin: "auto" }}
+    >
       <BrowserRouter>
         <GlobalStyle />
         <IconStyle />
