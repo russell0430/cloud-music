@@ -19,8 +19,7 @@ type CallbackFunction = () => void
 interface PropsType {
   pullUp?: CallbackFunction
   pullDown?: CallbackFunction
-  onScroll?: CallbackFunction
-
+  onScroll?: (pos: { x: number; y: number }) => void
   direction: "horizontal" | "vertical"
   click?: boolean
   refresh?: boolean
@@ -32,10 +31,10 @@ interface PropsType {
   pullUpLoading?: boolean
   pullDownLoading?: boolean
 
-  loading?:boolean
+  loading?: boolean
 }
 
-interface ScrollHandler {
+export interface ScrollHandler {
   refresh(): void
   getBScroll(): any
 }
@@ -59,7 +58,7 @@ const Scroll: ForwardRefRenderFunction<
     pullUpLoading,
     pullDownLoading,
 
-    loading=false
+    loading = false,
   },
   ref
 ) => {
@@ -67,7 +66,7 @@ const Scroll: ForwardRefRenderFunction<
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
     if (scrollContainerRef.current) {
-      const sroll = new BScroll(scrollContainerRef.current, {
+      const scroll = new BScroll(scrollContainerRef.current, {
         scrollX: direction === "horizontal",
         scrollY: direction === "vertical",
         probeType: 3,
@@ -81,17 +80,14 @@ const Scroll: ForwardRefRenderFunction<
         disableTouch: false,
       })
       setBScroll(scroll)
-      return () => {
-        setBScroll(null)
-      }
     } else {
       console.log("no current")
     }
   }, [])
 
   useEffect(() => {
-    if (bScroll || !onScroll) return
-    bScroll.on("scroll", (scroll) => {
+    if (!bScroll || !onScroll) return
+    bScroll.on("scroll", (scroll: { x: number; y: number }) => {
       onScroll(scroll)
     })
     return () => bScroll.off("scroll")
@@ -101,7 +97,7 @@ const Scroll: ForwardRefRenderFunction<
     refresh() {
       if (bScroll) {
         bScroll.refresh()
-        bScroll.srcollTo(0, 0)
+        bScroll.scrollTo(0, 0)
       }
     },
     getBScroll() {
@@ -145,7 +141,7 @@ const Scroll: ForwardRefRenderFunction<
 
   useEffect(() => {
     if (!bScroll || !pullDownDebounce) return
-    bScroll.on("touchEnd", (pos) => {
+    bScroll.on("touchEnd", (pos: { x: number; y: number }) => {
       if (pos.y > 50) {
         pullDownDebounce()
       }

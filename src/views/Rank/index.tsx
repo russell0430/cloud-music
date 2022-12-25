@@ -12,7 +12,7 @@ const Rank: React.FC = () => {
     : { display: "" }
   return (
     <Container>
-      <Scroll loading={loading}>
+      <Scroll loading={loading} direction="vertical">
         <div>
           <h1 className="offical" style={displayStyle}>
             官方榜

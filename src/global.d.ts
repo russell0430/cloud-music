@@ -52,8 +52,7 @@ declare interface Album {
 
 // /singers/:id  特定歌手
 declare interface Artist {
-  picUrl: string
-  name: string
+  artist: { picUrl: string; name: string }
   hotSongs: {
     name: string
     ar: {

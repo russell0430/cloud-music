@@ -269,3 +269,6 @@ const RankTypes = {
 
 export { axiosInstance, categories, alphas,RankTypes }
 export type { Category, Alpha }
+
+
+export const HEADER_HEIGHT=80
