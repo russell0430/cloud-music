@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useParams, useNavigate, Outlet } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
 import SongList from "@/views/SongList"
+import MusicNote, { MusicNoteHandler } from "@/components/musicNote"
 import {
   BgLayer,
   CollectButton,
@@ -14,6 +15,7 @@ import {
 } from "./style"
 import { HEADER_HEIGHT } from "@/api/config"
 import useArtist from "./hooks/useArtist"
+import Loading from "@/components/loading"
 
 const Singer: React.FC = () => {
   const { id } = useParams()
@@ -87,6 +89,8 @@ const Singer: React.FC = () => {
       imageDOM!.style.zIndex = "99"
     }
   }, [])
+
+  const musicNoteRef = useRef<MusicNoteHandler>(null)
   return (
     <CSSTransition
       in={showStatus}
@@ -117,10 +121,13 @@ const Singer: React.FC = () => {
               collectCount={0}
               songs={artist.hotSongs}
               showCollect
+              musicAnimation={musicNoteRef.current?.startAnimation}
               showBackground
-            ></SongList>
+            />
           </Scroll>
         </SongListWrapper>
+        <Loading loading={loading} />
+        <MusicNote ref={musicNoteRef} />
       </Container>
     </CSSTransition>
   )

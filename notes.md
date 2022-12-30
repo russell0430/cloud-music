@@ -75,6 +75,8 @@ getBannerRequest().then((data) => {
 后续\
 后来在请求的`api`文件夹下创建一个新的`types.ts` 管理`api`内相关的类型,其他类型,如`singer`,`song`等,放到`global.d.ts`全局声明
 
+
+
 ## Bug
 
 ### 1
@@ -223,3 +225,14 @@ const App=()=>{
 ```typescript
 const
 ```
+
+### 4
+
+多种使用动画的方式
+1. `npm`库 `create-keyframe-animation`
+2. `npm`库`react-transition-group`配合`css`
+
+
+### 5
+
+使用`svg`

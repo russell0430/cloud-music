@@ -267,8 +267,13 @@ const RankTypes = {
   "23": "江小白YOLO云音乐说唱榜",
 }
 
-export { axiosInstance, categories, alphas,RankTypes }
+export { axiosInstance, categories, alphas, RankTypes }
 export type { Category, Alpha }
 
+export const HEADER_HEIGHT = 80
 
-export const HEADER_HEIGHT=80
+export enum playMode {
+  sequence,
+  single,
+  random,
+}

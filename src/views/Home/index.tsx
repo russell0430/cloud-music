@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { NavLink, Outlet } from "react-router-dom"
+import Player from "../Player"
 import { Top, Tab, TabItem } from "./style"
 
 const activeClassName = ({
@@ -28,6 +29,7 @@ const Home: React.FC = () => {
         </NavLink>
       </Tab>
       <Outlet />
+      <Player />
     </div>
   )
 }

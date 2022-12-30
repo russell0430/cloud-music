@@ -1,20 +1,29 @@
 import React, { ForwardRefRenderFunction } from "react"
 import { SongListContainer, SongItem } from "./style"
 import { getCount, getName } from "@/api/utils"
-
+import useStore from "./store//useStore"
 interface SongListProps {
   collectCount: number
   showCollect: boolean
   showBackground: boolean
-  songs: Artist["hotSongs"]
+  songs: SongDetail[]
+  musicAnimation?: (pos: { x: number; y: number }) => void
 }
 
 const SongList: ForwardRefRenderFunction<HTMLDivElement, SongListProps> = (
-  { collectCount, showCollect, showBackground, songs },
+  { collectCount, showCollect, showBackground, songs, musicAnimation },
   ref
 ) => {
   const totalCount = songs.length
-  const selectItem = (e, index) => {
+  const { changePlaylist, changeSequencePlaylist, changeCurrentIndex } =
+    useStore()
+
+  const selectItem = (e: React.MouseEvent, index: number) => {
+    changePlaylist(songs)
+    changeSequencePlaylist(songs)
+    changeCurrentIndex(index)
+    if (musicAnimation)
+      musicAnimation({ x: e.nativeEvent.clientX, y: e.nativeEvent.clientY })
     console.log(index)
   }
   const songList = (list) => {

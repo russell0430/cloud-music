@@ -46,3 +46,56 @@ export const getName = (list: { name: string }[]) => {
       return `${prev}/${curr}`
     })
 }
+
+export const _getPosAndScale = () => {
+  const targetWidth = 40
+  const paddingLeft = 40
+  const paddingBottom = 30
+  const paddingTop = 80
+  const width = window.innerWidth * 0.8
+  const scale = targetWidth / width
+  // 两个圆心的横坐标距离和纵坐标距离
+  const x = -(window.innerWidth / 2 - paddingLeft)
+  const y = window.innerHeight - paddingTop - width / 2 - paddingBottom
+  return {
+    x,
+    y,
+    scale,
+  }
+}
+
+export const getSongUrl = (id: number) => {
+  return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+}
+
+export const isEmptyObject = (obj: Object) =>
+  !obj || Object.keys(obj).length === 0
+
+export const formatPlayTime = (interval: number) => {
+  interval = interval | 0 // |0表示向下取整
+  const minute = (interval / 60) | 0
+  const second = (interval % 60).toString().padStart(2, "0")
+  return `${minute}:${second}`
+}
+
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+// 随机算法
+export function shuffle<T>(arr: T[]) {
+  let new_arr = [...arr]
+  for (let i = 0; i < new_arr.length; i++) {
+    let j = getRandomInt(0, i)
+    let t = new_arr[i]
+    new_arr[i] = new_arr[j]
+    new_arr[j] = t
+  }
+  return new_arr
+}
+
+// 找到当前的歌曲索引
+export const findIndex = <T extends { id: number }>(song: T, list: T[]) => {
+  return list.findIndex((item) => {
+    return song.id === item.id
+  })
+}

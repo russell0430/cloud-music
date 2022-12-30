@@ -50,16 +50,22 @@ declare interface Album {
   }[]
 }
 
+// player
+declare interface SongDetail {
+  id:number
+  dt:number
+  name: string
+  ar: {
+    name: string
+  }[]
+  al: {
+    name?: string
+    picUrl?: string
+  }
+}
+
 // /singers/:id  特定歌手
 declare interface Artist {
   artist: { picUrl: string; name: string }
-  hotSongs: {
-    name: string
-    ar: {
-      name: string
-    }[]
-    al: {
-      name: string
-    }
-  }[]
+  hotSongs: SongDetail[]
 }
