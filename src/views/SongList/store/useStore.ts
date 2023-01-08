@@ -11,6 +11,7 @@ import {
 } from "@/store/index"
 import * as React from "react"
 const useStore = () => {
+  console.log("songlist")
   const setCurrenIndex = useSetRecoilState(useCurrentIndex)
   const setPlaylist = useSetRecoilState(usePlaylist)
   const setSequencePlaylist = useSetRecoilState(useSequencePlaylist)

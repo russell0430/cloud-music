@@ -2,7 +2,7 @@ import * as React from "react"
 import { getAlbumDetailRequest } from "@/api/request"
 const useAlbum = (id: string) => {
   const [loading, setLoading] = React.useState(false)
-  const [albumDetail, setAlbumDetail] = React.useState<Album | undefined>()
+  const [albumDetail, setAlbumDetail] = React.useState<Album>()
   React.useEffect(() => {
     setLoading(true)
     getAlbumDetailRequest(id)
@@ -16,7 +16,7 @@ const useAlbum = (id: string) => {
         setLoading(false)
       })
   }, [])
-  return {loading,albumDetail}
+  return { loading, albumDetail }
 }
 
 export default useAlbum

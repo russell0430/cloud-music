@@ -15,6 +15,15 @@ export const Container = styled.div`
     font-size: ${style["font-size-m"]};
     color: ${style["font-color-desc"]};
   }
+  .info {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: aquamarine;
+    margin:40px;
+    display: block;
+    color: red;
+    text-align: center;
+  }
 `
 
 export const List = styled.ul<{ globalRank: boolean }>`

@@ -41,6 +41,8 @@ declare interface Album {
   name: string
   tracks: {
     name: string
+    id:number
+    dt:number
     ar: {
       name: string
     }[]
@@ -52,8 +54,8 @@ declare interface Album {
 
 // player
 declare interface SongDetail {
-  id:number
-  dt:number
+  id: number
+  dt: number
   name: string
   ar: {
     name: string
@@ -68,4 +70,13 @@ declare interface SongDetail {
 declare interface Artist {
   artist: { picUrl: string; name: string }
   hotSongs: SongDetail[]
+}
+
+declare interface Lyric {
+  lrc: { lyric: string }
+}
+
+declare interface Hotkey {
+  first: string
+  second: number
 }

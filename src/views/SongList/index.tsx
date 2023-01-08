@@ -1,7 +1,7 @@
 import React, { ForwardRefRenderFunction } from "react"
 import { SongListContainer, SongItem } from "./style"
 import { getCount, getName } from "@/api/utils"
-import useStore from "./store//useStore"
+import useStore from "./store/useStore"
 interface SongListProps {
   collectCount: number
   showCollect: boolean
@@ -26,7 +26,8 @@ const SongList: ForwardRefRenderFunction<HTMLDivElement, SongListProps> = (
       musicAnimation({ x: e.nativeEvent.clientX, y: e.nativeEvent.clientY })
     console.log(index)
   }
-  const songList = (list) => {
+  const songList = (list: SongDetail[]) => {
+    console.log(list)
     return list.map((item, index) => {
       return (
         <li key={`${item.id}${index}`} onClick={(e) => selectItem(e, index)}>
@@ -34,8 +35,7 @@ const SongList: ForwardRefRenderFunction<HTMLDivElement, SongListProps> = (
           <div className="info">
             <span>{item.name}</span>
             <span>
-              {item.ar ? getName(item.ar) : getName(item.artists)} -{" "}
-              {item.al ? item.al.name : item.album.name}
+              {getName(item.ar)} - {item.al.name}
             </span>
           </div>
         </li>

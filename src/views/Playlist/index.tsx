@@ -98,7 +98,7 @@ const Playlist: React.FC = () => {
   const handleShowClear = () => {
     confirmRef.current?.show()
   }
-  const handleConfirmClear=()=>{}
+  const handleConfirmClear = () => {}
 
   const [canTouch, setCanTouch] = useState(true)
   const [startY, setStartY] = useState(0)
@@ -136,6 +136,7 @@ const Playlist: React.FC = () => {
     }
     setDistance(0)
   }
+
   return (
     <CSSTransition
       in={showPlaylist}

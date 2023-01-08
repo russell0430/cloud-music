@@ -7,6 +7,7 @@ import Singers from "@/views/Singers"
 import Rank from "@/views/Rank"
 import Album from "@/views/Album"
 import Singer from "@/views/Singer"
+import Search from "@/views/Search"
 type RouteType = {
   path: string
   element: React.ReactElement
@@ -23,26 +24,36 @@ const routes: RouteType[] = [
       {
         path: "/recommend",
         element: <Recommend />,
-        children:[
+        children: [
           {
             path: ":id",
             element: <Album />,
           },
-        ]
+        ],
       },
       {
         path: "/singers",
         element: <Singers />,
-        children:[{
-          path:"/singers/:id",
-          element: <Singer />
-        }
-        ]
+        children: [
+          {
+            path: "/singers/:id",
+            element: <Singer />,
+          },
+        ],
       },
       {
         path: "/rank",
         element: <Rank />,
       },
+      {
+        path: "/search",
+        exact: true,
+        element: <Search />,
+      },
+      {
+        path:"/album/:id",
+        element:<Album/>
+      }
     ],
   },
 ]

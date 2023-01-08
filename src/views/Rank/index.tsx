@@ -28,6 +28,7 @@ const Rank: React.FC = () => {
             </EnterLoading>
           ) : null}
         </div>
+        <span className="info">此处接口改变,此页废弃</span>
       </Scroll>
     </Container>
   )

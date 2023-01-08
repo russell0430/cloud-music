@@ -7,8 +7,8 @@ interface Options {
 }
 const useRecommendView = (options?: Options) => {
   const { recommend = true, banner = true } = options || {}
-  const [bannerList, setBannerList] = React.useState<BannerType[]>([])
-  const [recommendList, setRecommendList] = React.useState<RecommendType[]>([])
+  const [bannerList, setBannerList] = React.useState<Banner[]>([])
+  const [recommendList, setRecommendList] = React.useState<Recommend[]>([])
 
   const [loading, setLoading] = React.useState<boolean>(false)
   const [bannerLoading, setBannerLoading] = React.useState<boolean>(false)

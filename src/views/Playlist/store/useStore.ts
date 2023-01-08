@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
+import { useRecoilState, useSetRecoilState } from "recoil"
 import { default_current_song } from "@/store/constans"
 import {
   useShowPlaylist,
@@ -21,10 +21,10 @@ const useStore = () => {
   const setPlayStatus = useSetRecoilState(usePlaying)
   const deleteSong = (song: SongDetail) => {
     const fpIndex = findIndex(song, playlist)
-    setPlaylist(playlist.filter(item=>item.id!==song.id))
+    setPlaylist(playlist.filter((item) => item.id !== song.id))
     if (fpIndex < currentIndex) setCurrentIndex(currentIndex - 1)
     const fsIndex = findIndex(song, sequencePlaylist)
-    setSequencePlaylist(playlist.filter(item=>item.id!==song.id))
+    setSequencePlaylist(playlist.filter((item) => item.id !== song.id))
   }
 
   const clearPlaylist = () => {
