@@ -29,7 +29,7 @@ const Playlist: React.FC = () => {
 
   const onEnterCB = useCallback(() => {
     setIsShow(true)
-    listWrapperRef.current!.style["transform"] = "translate3d(0,100%,0)"
+    // listWrapperRef.current!.style["transform"] = "translate3d(0,100%,0)"
   }, [])
   const onEnteringCB = useCallback(() => {
     listWrapperRef.current!.style["transition"] = "all 0.3s"
@@ -41,7 +41,7 @@ const Playlist: React.FC = () => {
   }, [])
   const onExitedCB = useCallback(() => {
     setIsShow(false)
-    listWrapperRef.current!.style["transform"] = "translate3d(0,100%,0)"
+    // listWrapperRef.current!.style["transform"] = "translate3d(0,100%,0)"
   }, [])
 
   const getCurrentIcon = (item: SongDetail) => {
@@ -108,10 +108,11 @@ const Playlist: React.FC = () => {
 
   const handleScroll = (pos: { x: number; y: number }) => {
     let state = pos.y === 0
-    console.log("handleScroll")
+    console.log("handleScroll",pos)
     setCanTouch(state)
   }
   const handleTouchStart: TouchEventHandler<HTMLDivElement> = (e) => {
+    console.log("TouchStart")
     if (!canTouch || initialized) return
     console.log("handleTouchStart")
     listWrapperRef.current!.style["transition"] = ""
@@ -119,15 +120,16 @@ const Playlist: React.FC = () => {
     setInitialized(true)
   }
   const handleTouchMove: TouchEventHandler<HTMLDivElement> = (e) => {
+    console.log("TouchMove")
     if (!canTouch || !initialized) return
-    console.log("handleTouchMove")
     let distance = e.nativeEvent.touches[0].pageY - startY
+    console.log("handleTouchMove", distance)
     if (distance < 0) return
     setDistance(distance)
   }
   const handleTouchEnd: TouchEventHandler<HTMLDivElement> = (e) => {
     setInitialized(false)
-    console.log("handleTouchEnd")
+    console.log("handleTouchEnd", distance)
     if (distance >= 150) {
       toggleShowPlaylist(false)
     } else {

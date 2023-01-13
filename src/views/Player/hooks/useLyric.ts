@@ -7,7 +7,6 @@ const useLyric = (id: number) => {
   const currentLyric = React.useRef("")
   const handleLyric = ({ lineNum, txt }: { lineNum: number; txt: string }) => {
     setCurrentLineNum(lineNum)
-    console.log("handle")
     currentLyric.current = txt
   }
   React.useEffect(() => {
@@ -16,8 +15,10 @@ const useLyric = (id: number) => {
     getLyricRequest(id)
       .then((res) => {
         try {
+          lyricParser.current?.destroy()
           lyricParser.current = new Lyric(res.lrc.lyric, handleLyric)
           setCurrentLineNum(0)
+          lyricParser.current.seek(0)
         } catch (err) {}
       })
       .catch((err) => {
@@ -39,15 +40,12 @@ interface LyricRecord {
   txt: string
   time: number
 }
-enum State {
-  pause = 0,
-  play = 1,
-}
+
 class Lyric {
   private curLineIndex = 0
   private startStamp = 0
   private linesRes: LyricRecord[] = []
-  private state: State = 0
+  private state: boolean = false
   private timer?: NodeJS.Timer
   constructor(
     private lrc: string,
@@ -80,13 +78,15 @@ class Lyric {
   }
   public play(offset: number = 0, isSeek: boolean = false) {
     if (this.linesRes.length) {
-      this.state = State.play
+      this.state = true
       this.curLineIndex = this._findcurLineIndex(offset)
       this._callHandler(this.curLineIndex - 1)
       this.startStamp = +new Date() - offset
       if (this.curLineIndex < this.linesRes.length) {
         clearTimeout(this.timer)
+        this.timer = undefined
         this._playRest(isSeek)
+        console.log("get")
       }
     }
   }
@@ -110,30 +110,29 @@ class Lyric {
     let delay
     if (isSeek) {
       delay = line.time - (+new Date() - this.startStamp)
+      console.log(delay, "isSeek")
     } else {
       let preTime = this.linesRes[this.curLineIndex - 1].time || 0
       delay = line.time - preTime
     }
     this.timer = setTimeout(() => {
       this._callHandler(this.curLineIndex++)
-      if (
-        this.curLineIndex < this.linesRes.length &&
-        this.state === State.play
-      ) {
+      console.log(this.curLineIndex, "here")
+      if (this.curLineIndex < this.linesRes.length && this.state) {
         this._playRest()
       }
     }, delay)
   }
-  public togglePlay(offset: number) {
-    if (this.state === State.play) {
+  public togglePlay(offset: number, isPlaying: boolean) {
+    if (!isPlaying) {
       this.stop()
     } else {
-      this.state = State.play
       this.play(offset, true)
     }
+    this.state = isPlaying
   }
   public stop() {
-    this.state = State.pause
+    this.state = false
     clearTimeout(this.timer)
     this.timer = undefined
   }
@@ -142,5 +141,9 @@ class Lyric {
   }
   public getLyrics() {
     return this.linesRes
+  }
+  public destroy() {
+    clearTimeout(this.timer)
+    this.timer = undefined
   }
 }

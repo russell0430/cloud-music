@@ -4,17 +4,31 @@ import style from "@/assets/global-style"
 export const PlaylistWrapper = styled.div`
   &.list-fade-enter {
     opacity: 0;
+    /* .list-wrapper{
+      transform: translate3d(0,100%,0);
+    } */
   }
   &.list-fade-enter-active {
     opacity: 1;
     transition: all 0.3s;
+    /* .list-wrapper{
+      transition: all 0.3s;
+      transform: translate3d(0,0,0);
+    } */
   }
   &.list-fade-exit {
     opacity: 1;
+    /* .list-wrapper{
+      transform: translate3d(0,100%,0);
+    } */
   }
   &.list-fade-exit-active {
     opacity: 0;
     transition: all 0.3s;
+    /* .list-wrapper{
+      transition: all 0.3s;
+      transform: translate3d(0,100%,0);
+    } */
   }
   position: fixed;
   left: 0;
@@ -34,6 +48,7 @@ export const PlaylistWrapper = styled.div`
     border-radius: 10px 10px 0 0;
     background: ${style["highlight-background-color"]};
     transform: translate3d(0, 0, 0);
+    transition: all 0.3s;
     .list-close {
       text-align: center;
       line-height: 50px;

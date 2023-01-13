@@ -57,7 +57,7 @@ getBannerRequest().then((data) => {
 
 ### 思考
 
-``为什么`Singers` 页面的横向滑动没有此现象,除了页面使用`useEffect`进行加载后的处理(看似是原因,其实应该不是),\
+为什么`Singers` 页面的横向滑动没有此现象,除了页面使用`useEffect`进行加载后的处理(看似是原因,其实应该不是),\
 滚动的元素是页面上的`span`,本来就要占位.
 
 ### 吐槽
@@ -90,7 +90,7 @@ getBannerRequest().then((data) => {
 ```typescript
 // scroll/index.tsx
 
-// 加载后出发resize事件
+// 加载后触发resize事件
 // 防止首次加载不能滚动
 useEffect(() => {
   window.dispatchEvent(new Event("resize"))

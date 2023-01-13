@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import style from "@/assets/global-style"
-import React from "react"
 
 interface SongListProps {
   showBackground: boolean

@@ -17,7 +17,7 @@ const useArtist = (id: string) => {
         console.warn("get artist error!")
       })
       .finally(() => setLoading(false))
-  }, [])
+  }, [id])
 
   return { loading, artist }
 }

@@ -4,6 +4,8 @@
 看到一个[小册子](https://juejin.cn/book/6844733816460804104)，就学习一下\
 由于年代久远，自己使用react@18.2以及typescript进行改写
 
+后端使用[link](https://neteasecloudmusicapi-docs.4everland.app/#/)
+
 ## 第一次尝试
 - styled-components
 - better-scroll
@@ -19,4 +21,4 @@
 - webpack -> vite
 
 ## 问题与心得
-notes.md
+folder /notes

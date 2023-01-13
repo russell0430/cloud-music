@@ -34,9 +34,7 @@ const Search: React.FC = () => {
     getHotKeywords()
   }, [])
   useEffect(() => {
-    console.log("search", query)
     if (query !== "") {
-      console.log("SS")
       getSuggestlist(query)
     }
   }, [query])

@@ -32,25 +32,23 @@ const MusicNote: React.ForwardRefRenderFunction<MusicNoteProps> = ({}, ref) => {
     domArray.forEach((item) => {
       item.running = false
       item.addEventListener("transitionend", () => {
-        item.style ['display'] = 'none';
-        item.style ['transform'] = `translate3d(0, 0, 0)`;
-        item.running = false;
+        item.style["display"] = "none"
+        item.style["transform"] = `translate3d(0, 0, 0)`
+        item.running = false
 
-        let icon = item.querySelector('div');
-        icon!.style['transform'] = `translate3d(0, 0, 0)`;
+        let icon = item.querySelector("div")
+        icon!.style["transform"] = `translate3d(0, 0, 0)`
       })
     })
   }, [])
 
   const startAnimation = ({ x, y }: { x: number; y: number }) => {
     console.log("start")
+    let domArray = [].slice.call(iconsRef.current?.children) as AnimationNode[]
     for (let i = 0; i < ICON_NUMBER; i++) {
-      let domArray = [].slice.call(
-        iconsRef.current?.children
-      ) as AnimationNode[]
       let item = domArray[i]
       if (item.running === false) {
-        console.log("running")
+        console.log("running", x, y)
         item.style.left = `${x}px`
         item.style.top = `${y}px`
         item.style.display = "inline-block"
@@ -58,7 +56,7 @@ const MusicNote: React.ForwardRefRenderFunction<MusicNoteProps> = ({}, ref) => {
           item.running = true
           item.style["transform"] = `translate3d(0,750px,0)`
           let icon = item.querySelector("div")
-          icon!.style["transform"] = `translate3d(-40px,0,0)`
+          icon!.style["transform"] = `translate3d(-100px,0,0)`
         })
         break
       }

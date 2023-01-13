@@ -11,10 +11,12 @@ const Header: React.ForwardRefRenderFunction<
 > = ({ title, handleClick, isMarquee }, ref) => {
   return (
     <HeaderContainer ref={ref}>
-      <i className="iconfont back">&#xe655;</i>
+      <i className="iconfont back" onClick={handleClick}>
+        &#xe655;
+      </i>
       {isMarquee ? (
         <div className="marquee">
-          <h1>{title}</h1>
+          <h1 className="text">{title}</h1>
         </div>
       ) : (
         <h1>{title}</h1>

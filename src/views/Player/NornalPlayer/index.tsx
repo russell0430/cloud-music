@@ -64,7 +64,7 @@ const NormalPlayer: React.FC<NormalPlayerProps> = ({
         transform: `translate3d(${x}px,${y}px,0) scale(${scale})`,
       },
       60: {
-        transform: "transform3d(0,0,0) scale(1.1)",
+        transform: "transform3d(0,0,0) scale(1.2)",
       },
       100: {
         transform: "transform3d(0,0,0) scale(1)",
@@ -115,7 +115,6 @@ const NormalPlayer: React.FC<NormalPlayerProps> = ({
   const [currentState, setCurrentState] = useState(true)
   const toggleCurrentState = () => {
     setCurrentState((state) => !state)
-    console.log("toggle")
   }
   const lyricScrollRef = useRef<ScrollHandler>(null)
   const lyricWrapperRef = useRef<HTMLDivElement>(null)
@@ -130,7 +129,7 @@ const NormalPlayer: React.FC<NormalPlayerProps> = ({
     } else {
       bScroll.scrollTo(0, 0, 1000)
     }
-  }, [currentLineNum])
+  }, [currentLineNum,song.id])
   return (
     <CSSTransition
       classNames="normal"

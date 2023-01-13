@@ -32,7 +32,6 @@ export const Container = styled.div<ContainerProps>`
     transform: rotateZ(30deg) translate3d(100%, 0, 0);
   }
 `
-export const Header = styled.div``
 
 interface ImgWrapperProps {
   bgUrl: string
@@ -94,7 +93,6 @@ export const BgLayer = styled.div`
   width: 100%;
   background-color: white;
   border-radius: 10px;
-  z-index: 50;
 `
 
 export const SongListWrapper = styled.div`

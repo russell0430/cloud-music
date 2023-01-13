@@ -27,14 +27,14 @@ export const HeaderContainer = styled.div`
     white-space: nowrap;
     .text {
       position: absolute;
-      animation: marquee 10s linear infinite;
-    }
-    @keyframes marquee {
-      from {
-        left: 100%;
-      }
-      to {
-        left: -100%;
+      animation: marquee-animation 10s linear infinite;
+      @keyframes marquee-animation {
+        from {
+          left: 100%;
+        }
+        to {
+          left: -100%;
+        }
       }
     }
   }

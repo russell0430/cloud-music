@@ -8,14 +8,6 @@ import { findIndex, getSongUrl, isEmptyObject, shuffle } from "@/api/utils"
 import Playlist from "../Playlist"
 import usePlayStatus from "./hooks/usePlayStatus"
 import useLyric from "./hooks/useLyric"
-const currentSong = {
-  al: {
-    picUrl:
-      "https://p1.music.126.net/JL_id1CFwNJpzgrXwemh4Q==/109951164172892390.jpg",
-  },
-  name: "木偶人",
-  ar: [{ name: "薛之谦" }],
-}
 
 interface PlayerProps {}
 const Player: React.FC<PlayerProps> = () => {
@@ -36,16 +28,10 @@ const Player: React.FC<PlayerProps> = () => {
     toggleShowPlaylist,
   } = useStore()
 
-  // const [currentTime, setCurrentTime] = useState(0)
-  // // 总时长
-  // const [duration, setDuration] = useState(0)
-  // const audioRef = useRef<HTMLAudioElement>(null)
-  // let percent = isNaN(currentTime / duration) ? 0 : currentTime / duration
   const clickPlaying = (e: React.MouseEvent, status: boolean) => {
     e.stopPropagation()
     togglePlayingStatus(status)
-    lyricParser.current?.seek(currentTime * 1000)
-    if (!status) lyricParser.current?.stop()
+    lyricParser.current?.togglePlay(currentTime * 1000, status)
   }
 
   const {
@@ -61,6 +47,8 @@ const Player: React.FC<PlayerProps> = () => {
   } = usePlayStatus()
 
   const { loading, lyricParser, currentLineNum } = useLyric(currentSong.id)
+
+  
   const toastRef = useRef<ToastHandler>(null)
   const changeMode = () => {
     let newMode = (mode + 1) % 3
@@ -88,7 +76,7 @@ const Player: React.FC<PlayerProps> = () => {
   const onProgressChange = (curPercent: number) => {
     const newTime = curPercent * duration
     onChange(curPercent)
-    lyricParser.current?.togglePlay(newTime * 1000)
+    lyricParser.current?.seek(newTime * 1000)
     console.log("progress change", newTime)
   }
   return (

@@ -9,7 +9,6 @@ import {
   useSequencePlaylist,
   useShowPlaylist,
 } from "@/store/index"
-import * as React from "react"
 const useStore = () => {
   const [fullScreen, setFullScreen] = useRecoilState(useFullScreen)
   const [playing, setPlaying] = useRecoilState(usePlaying)

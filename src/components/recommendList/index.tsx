@@ -2,7 +2,6 @@ import React from "react"
 import { ListWrapper, ListItem, List } from "./style"
 import { getCount } from "@/api/utils"
 import { useNavigate } from "react-router-dom"
-import music from "./music.png"
 
 interface PropsType {
   recommendList: Recommend[]
